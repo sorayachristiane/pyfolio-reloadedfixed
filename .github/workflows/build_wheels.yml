@@ -9,6 +9,11 @@ on:
         required: true
         default: 'PYPI'
         options: [ 'TESTPYPI', 'PYPI' ]
+      version:
+        type: string
+        description: 'Version tag'
+        required: true
+        default: '0.9.9'
 
 jobs:
   dist:
@@ -17,14 +22,14 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest ]
-        python-version: [ "3.10" ]
+        python-version: [ "3.12" ]
 
     steps:
       - name: Checkout pyfolio
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: 0.9.7
+          ref: ${{ github.event.inputs.version }}
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -57,7 +62,7 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.TESTPYPI_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+          repository-url: https://test.pypi.org/legacy/
 
       - name: publish to pypi
         if: ${{ github.event.inputs.target  == 'PYPI' }}
