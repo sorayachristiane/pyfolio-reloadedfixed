@@ -491,7 +491,7 @@ def plot_drawdown_underwater(returns, ax=None, **kwargs):
     underwater = -100 * ((running_max - df_cum_rets) / running_max)
     underwater.plot(ax=ax, kind="area", color="salmon", alpha=0.7, **kwargs)
     ax.set_ylabel("Drawdown")
-    ax.set_title("Underwater plot")
+#    ax.set_title("Underwater plot")
     ax.set_xlabel("")
     return ax
 
